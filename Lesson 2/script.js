@@ -3,13 +3,13 @@ var xotakernerArr = [];
 var gishatichnerArr = [];
 var amenakernerArr = [];
 var mahArr = [];
-var side = 15;
+var side = 30;
 var matrix = [];
 
 function setup(){
-    for (var y = 0; y < 40; y++) {
+    for (var y = 0; y < 15; y++) {
         matrix[y] = [0];
-        for (var x = 0; x < 40; x++) {
+        for (var x = 0; x < 15; x++) {
             matrix[y][x] = Math.floor(random(0, 5));
         }
     }
@@ -21,7 +21,7 @@ function setup(){
     for(var y = 0; y < matrix.length; ++y){
         for(var x = 0; x < matrix[y].length; ++x){
             if(matrix[y][x] == 1){
-               var gr = new Grass(x, y);
+               var gr = new Grass(x, y, 1);
                grassArr.push(gr);
             }else if(matrix[y][x] == 2){
                 var eater = new Xotaker(x, y, 2);
@@ -125,6 +125,5 @@ function draw(){
 
     for(var x in amenakernerArr){
         amenakernerArr[x].utel();
-        amenakernerArr[x].mahanal();
     }
 }
