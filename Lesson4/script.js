@@ -27,7 +27,7 @@
 // .addEventListener('keydown', keydown);
 
 function main() {
-   var socket = io.connect('http://10.33.43.139:5000');
+   var socket = io.connect('http://localhost:3000');
    var chatDiv = document.getElementById('chat');
    var input = document.getElementById('message');
    var button = document.getElementById('submit');
@@ -49,6 +49,6 @@ function main() {
 }
 
 socket.on('display message', handleMessage);
-} // main closing bracket
+}
 
 window.onload = main;
