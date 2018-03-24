@@ -2,6 +2,7 @@ class Gishatich extends KendaniEak{
     constructor(x, y, index){
 		super(x, y, index);
 		this.directions = [];
+        this.bazmanaluAragutyun;
 	}
 
 	yntrelVandak(ch, ch1, ch2, ch3, ch4){
@@ -20,6 +21,16 @@ class Gishatich extends KendaniEak{
             [this.x    , this.y + 1],
             [this.x + 1, this.y + 1]
         ];
+    }
+
+    stanalExanak(exanak){
+        if (exanak == "spring") {
+            this.bazmanaluAragutyun = 5;
+        }else if(exanak == 'summer'){
+            this.bazmanaluAragutyun = 12;
+        }else if(exanak == "autumn"){
+            this.bazmanaluAragutyun = 15;
+        }
     }
 
     utel(){
@@ -59,7 +70,7 @@ class Gishatich extends KendaniEak{
         this.stanalNorKordinatner();
         var vandak = random(this.yntrelVandak(0, 1, 2, 0, 1));
 
-        if(vandak && this.energy >= 15){
+        if(vandak && this.energy >= this.bazmanaluAragutyun){
             var norGishatich = new Gishatich(vandak[0], vandak[1], 3);
             gishatichnerArr.push(norGishatich);
 

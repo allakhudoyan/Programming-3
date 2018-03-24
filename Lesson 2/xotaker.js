@@ -2,7 +2,10 @@ class Xotaker extends KendaniEak {
     constructor(){
         super();
         this.tariq = 0;
+        this.bazmanaluAragutyun;
+        this.zuyg;
     }
+
    stanalNorKordinatner() {
        this.directions = [
            [this.x - 1, this.y - 1],
@@ -21,7 +24,6 @@ class Xotaker extends KendaniEak {
    }
 
    utel(){
-        this.moveTact++;
         this.stanalNorKordinatner();
         var vandak = random(this.yntrelVandak(0, 1));
 
@@ -47,26 +49,33 @@ class Xotaker extends KendaniEak {
         }
     }
 
+    stanalExanak(exanak){
+        if (exanak == "spring") {
+            this.bazmanaluAragutyun = 4;
+        }else if(exanak == 'summer'){
+            this.bazmanaluAragutyun = 8;
+        }else if(exanak == "autumn"){
+            this.bazmanaluAragutyun = 10;
+        }
+    }
+
     bazmanal(){
         this.stanalNorKordinatner();
         var vandak = random(this.yntrelVandak(1, 0));
 
-        if(vandak && this.energy >= 8 && matrix[vandak[1]][vandak[0]] == 1){
+        if(vandak && this.energy >= this.bazmanaluAragutyun){
             var norXotaker = new Xotaker(vandak[0], vandak[1], 2);
             xotakernerArr.push(norXotaker);
             matrix[vandak[1]][vandak[0]] = 2;
             this.energy = 5;
-            for (var c in grassArr) {
-                if (vandak[0] == grassArr[c].x && vandak[1] == grassArr[c].y) {
-                    grassArr.splice(c, 1);
-                    break;
-                } 
+            if (matrix[vandak[1]][vandak[0]] == 1) {
+                for (var c in grassArr) {
+                    if (vandak[0] == grassArr[c].x && vandak[1] == grassArr[c].y) {
+                        grassArr.splice(c, 1);
+                        break;
+                    } 
+                }
             }
-        }else if(vandak && this.energy >= 8 && matrix[vandak[1]][vandak[0]] == 0){
-            var norXotaker = new Xotaker(vandak[0], vandak[1], 2);
-            xotakernerArr.push(norXotaker);
-            matrix[vandak[1]][vandak[0]] = 2;
-            this.energy = 5;
         }
     }
 

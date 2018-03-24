@@ -5,6 +5,9 @@ var amenakernerArr = [];
 var mahArr = [];
 var side = 30;
 var matrix = [];
+var exanakner = ['winter', 'spring', 'summer', 'autumn'];
+var exanak = 'spring';
+var ex = 0;
 
 function setup(){
     for (var y = 0; y < 15; y++) {
@@ -38,6 +41,7 @@ function setup(){
 }   
 
 var multiplyMah = 0;
+var multiplyExanak = 0;
 
 function draw(){
     multiplyMah++;
@@ -70,7 +74,7 @@ function draw(){
             } 
         }else if (matrix[y][x] == 4) {
             for (var c in amenakernerArr) {
-                if (x == gishatichnerArr[c].x && y == amenakernerArr[c].y) {
+                if (x == amenakernerArr[c].x && y == amenakernerArr[c].y) {
                     amenakernerArr.splice(c, 1);
                     break;
                 }
@@ -78,17 +82,37 @@ function draw(){
         }
         matrix[y][x] = 5;
         mahArr[0].spanel();
-        console.log('spanec');
         mahArr = [];
         multiplyMah = 0;
     }
 
+    multiplyExanak++;
+
+    if(multiplyExanak >= 30){
+        exanak = exanakner[ex];
+        ex++;
+        if(ex >= 4){
+            ex = 0;
+        }
+        console.log(exanak);
+        multiplyExanak = 0;
+    }
+
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 1) {
+            if (matrix[y][x] == 1 && exanak == 'winter') {
+                fill('white');
+                rect(x * side, y * side, side, side);
+            }else if (matrix[y][x] == 1 && exanak == 'summer') {
                 fill('green');
                 rect(x * side, y * side, side, side);
-            } else if(matrix[y][x] == 0) {
+            }else if (matrix[y][x] == 1 && exanak == 'spring') {
+                fill('lightgreen');
+                rect(x * side, y * side, side, side);
+            }else if (matrix[y][x] == 1 && exanak == 'autumn') {
+                fill('orange');
+                rect(x * side, y * side, side, side);
+            }else if(matrix[y][x] == 0) {
                 fill('#acacac');
                 rect(x * side, y * side, side, side);
             } else if(matrix[y][x] == 2){
@@ -107,11 +131,14 @@ function draw(){
         }    
     }
 
-    for(var i in grassArr){
-        grassArr[i].bazmanal();
+    if(exanak != 'winter'){
+        for(var i in grassArr){
+            grassArr[i].bazmanal();
+        }
     }
 
     for (var i in xotakernerArr) {
+        xotakernerArr[i].stanalExanak(exanak);
         xotakernerArr[i].utel();
         xotakernerArr[i].bazmanal();
         xotakernerArr[i].mahanal();
@@ -123,7 +150,12 @@ function draw(){
         gishatichnerArr[f].mahanal();
     }
 
-    for(var x in amenakernerArr){
-        amenakernerArr[x].utel();
+    if(exanak != 'winter'){
+        for(var x in amenakernerArr){
+            amenakernerArr[x].utel();
+        }
+        if (exanak == 'spring') {
+            amenakernerArr[x].bazmanal();
+        }
     }
 }

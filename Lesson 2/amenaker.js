@@ -55,4 +55,37 @@ class Amenaker extends KendaniEak{
             }
         }
     }
+
+    bazmanal(){
+        this.stanalNorKordinatner();
+        var vandak = random(this.yntrelVandak(1, 2, 3, 1, 0));
+        if(vandak){
+            var norAmenaker = new Amenaker(vandak[0], vandak[1], 4);
+            amenakernerArr.push(norAmenaker);
+            matrix[this.y][this.x] = 4;
+
+            if(matrix[vandak[1]][vandak[0]] == 1){
+                for (var c in grassArr) {
+                    if (this.x == grassArr[c].x && this.y == grassArr[c].y) {
+                        grassArr.splice(c, 1);
+                        break;
+                    } 
+                }
+            }else if(matrix[vandak[1]][vandak[0]] == 2){
+                for (var c in xotakernerArr) {
+                    if (this.x == xotakernerArr[c].x && this.y == xotakernerArr[c].y) {
+                        xotakernerArr.splice(c, 1);
+                        break;
+                    } 
+                }
+            }else if(matrix[vandak[1]][vandak[0]] == 3){
+                for (var c in gishatichnerArr) {
+                    if (this.x == gishatichnerArr[c].x && this.y == gishatichnerArr[c].y) {
+                        gishatichnerArr.splice(c, 1);
+                        break;
+                    } 
+                }
+            }
+        }
+    }
 }
