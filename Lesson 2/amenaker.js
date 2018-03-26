@@ -1,7 +1,8 @@
 class Amenaker extends KendaniEak{
 	constructor(x, y, index){
 		super(x, y, index);
-		this.directions = [];
+        this.directions = [];
+        this.moveTact = 0;
 	}
 
 	yntrelVandak(ch, ch1, ch2, ch3, ch4){
@@ -23,9 +24,10 @@ class Amenaker extends KendaniEak{
     }
 
     utel(){
+        this.moveTact++;
         this.stanalNorKordinatner();
         var vandak = random(this.yntrelVandak(1, 2, 3, 1, 2));
-        if(vandak){
+        if(vandak && this.moveTact >= 7){
             matrix[this.y][this.x] = 0;
             this.x = vandak[0];
             this.y = vandak[1];
@@ -57,6 +59,7 @@ class Amenaker extends KendaniEak{
     }
 
     bazmanal(){
+        amenakerneriQanak++;
         this.stanalNorKordinatner();
         var vandak = random(this.yntrelVandak(1, 2, 3, 1, 0));
         if(vandak){

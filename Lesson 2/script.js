@@ -2,18 +2,24 @@ var grassArr = [];
 var xotakernerArr = [];
 var gishatichnerArr = [];
 var amenakernerArr = [];
+var qarArr = [];
 var mahArr = [];
 var side = 30;
 var matrix = [];
 var exanakner = ['winter', 'spring', 'summer', 'autumn'];
 var exanak = 'spring';
 var ex = 0;
+var xoteriQanak = 0;
+var xotakerneriQanak = 0;
+var gishatichneriQanak = 0;
+var amenakerneriQanak = 0;
+var qareriQanak = 0;
 
 function setup(){
     for (var y = 0; y < 15; y++) {
         matrix[y] = [0];
         for (var x = 0; x < 15; x++) {
-            matrix[y][x] = Math.floor(random(0, 5));
+            matrix[y][x] = Math.floor(random(0, 6));
         }
     }
 
@@ -24,17 +30,25 @@ function setup(){
     for(var y = 0; y < matrix.length; ++y){
         for(var x = 0; x < matrix[y].length; ++x){
             if(matrix[y][x] == 1){
-               var gr = new Grass(x, y, 1);
-               grassArr.push(gr);
+                xoteriQanak++;
+                var gr = new Grass(x, y, 1);
+                grassArr.push(gr);
             }else if(matrix[y][x] == 2){
+                xotakerneriQanak++;
                 var eater = new Xotaker(x, y, 2);
                 xotakernerArr.push(eater);
             }else if (matrix[y][x] == 3) {
+                gishatichneriQanak++;
                 var gishatich = new Gishatich(x, y, 3);
                 gishatichnerArr.push(gishatich);
             }else if(matrix[y][x] == 4){
+                amenakerneriQanak++;
                 var amenaker = new Amenaker(x, y, 4);
                 amenakernerArr.push(amenaker);
+            }else if(matrix[y][x] == 6){
+                qareriQanak++;
+                var qar = new Qar(x, y, 6);
+                qarArr.push(qar);
             }
         }
     }
@@ -127,6 +141,9 @@ function draw(){
             }else if(matrix[y][x] == 5){
                 fill('black');
                 rect(side * x, side * y, side, side);
+            }else if(matrix[y][x] == 6){
+                fill('lightgrey');
+                rect(side * x, side * y, side, side);
             }
         }    
     }
@@ -136,6 +153,10 @@ function draw(){
             grassArr[i].bazmanal();
         }
     }
+
+    fill('black');
+    textSize(32);
+    text(exanak, 2, 30);
 
     for (var i in xotakernerArr) {
         xotakernerArr[i].stanalExanak(exanak);
@@ -157,5 +178,9 @@ function draw(){
         if (exanak == 'spring') {
             amenakernerArr[x].bazmanal();
         }
+    }
+
+    for(var i in qarArr){
+        qarArr[i].texapokhvel();
     }
 }

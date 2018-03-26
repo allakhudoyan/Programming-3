@@ -3,29 +3,29 @@ class Xotaker extends KendaniEak {
         super();
         this.tariq = 0;
         this.bazmanaluAragutyun;
-        this.zuyg;
     }
 
-   stanalNorKordinatner() {
-       this.directions = [
-           [this.x - 1, this.y - 1],
-           [this.x, this.y - 1],
-           [this.x + 1, this.y - 1],
-           [this.x - 1, this.y],
-           [this.x + 1, this.y],
-           [this.x - 1, this.y + 1],
-           [this.x, this.y + 1],
-           [this.x + 1, this.y + 1]
-       ];
-   }
-   yntrelVandak(ch) {
-       this.stanalNorKordinatner();
-       return super.yntrelVandak(ch);
-   }
+    stanalNorKordinatner() {
+        this.directions = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
+        ];
+    }
 
-   utel(){
+    yntrelVandak(ch, ch1, ch2, ch3, ch4) {
+       this.stanalNorKordinatner();
+       return super.yntrelVandak(ch, ch1, ch2, ch3, ch4);
+    }
+
+    utel(){
         this.stanalNorKordinatner();
-        var vandak = random(this.yntrelVandak(0, 1));
+        var vandak = random(this.yntrelVandak(0, 1, 0, 1, 0));
 
         if (vandak && matrix[vandak[1]][vandak[0]] == 1) {
             matrix[this.y][this.x] = 0;
@@ -76,6 +76,7 @@ class Xotaker extends KendaniEak {
                     } 
                 }
             }
+            xotakerneriQanak++;
         }
     }
 
