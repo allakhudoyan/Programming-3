@@ -3,7 +3,7 @@ class KendaniEak {
         this.index = index;
         this.x = x;
         this.y = y;
-        this.energy = 8;
+        this.energy = 10;
         this.ser = random(0, 1);
         this.directions = [
             [this.x - 1, this.y - 1],

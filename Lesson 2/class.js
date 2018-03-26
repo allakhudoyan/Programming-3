@@ -422,7 +422,6 @@ class Amenaker{
             for (var c in amenakernerArr) {
                 if (this.x == amenakernerArr[c].x && this.y == amenakernerArr[c].y) {
                     amenakernerArr.splice(c, 1);
-                    console.log('amenakery merav');
                     break;
                 } 
             }

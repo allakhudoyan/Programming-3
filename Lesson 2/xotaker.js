@@ -1,8 +1,9 @@
 class Xotaker extends KendaniEak {
-    constructor(){
-        super();
+    constructor(x, y, index) {
+        super(x, y, index);
         this.tariq = 0;
         this.bazmanaluAragutyun;
+        this.zuyg;
     }
 
     stanalNorKordinatner() {
@@ -19,14 +20,21 @@ class Xotaker extends KendaniEak {
     }
 
     yntrelVandak(ch, ch1, ch2, ch3, ch4) {
-       this.stanalNorKordinatner();
-       return super.yntrelVandak(ch, ch1, ch2, ch3, ch4);
+        this.stanalNorKordinatner();
+        return super.yntrelVandak(ch, ch1, ch2, ch3, ch4);
     }
 
-    utel(){
-        this.stanalNorKordinatner();
-        var vandak = random(this.yntrelVandak(0, 1, 0, 1, 0));
+    gtnelZuyg(){
+        if (this.ser == 1) {
+            this.zuyg = 0;
+        }else{
+            this.zuyg = 1;
+        }
+    }
 
+    utel() {
+        this.stanalNorKordinatner();
+        var vandak = random(this.yntrelVandak(0, 1));
         if (vandak && matrix[vandak[1]][vandak[0]] == 1) {
             matrix[this.y][this.x] = 0;
             this.x = vandak[0];
@@ -38,9 +46,9 @@ class Xotaker extends KendaniEak {
                     grassArr.splice(c, 1);
                     this.energy++;
                     break;
-                } 
+                }
             }
-        }else if(vandak && matrix[vandak[1]][vandak[0]] == 0){
+        } else if (vandak && matrix[vandak[1]][vandak[0]] == 0) {
             this.energy--;
             matrix[this.y][this.x] = 0;
             this.x = vandak[0];
@@ -49,41 +57,50 @@ class Xotaker extends KendaniEak {
         }
     }
 
-    stanalExanak(exanak){
+    stanalExanak(exanak) {
         if (exanak == "spring") {
-            this.bazmanaluAragutyun = 4;
-        }else if(exanak == 'summer'){
-            this.bazmanaluAragutyun = 8;
-        }else if(exanak == "autumn"){
-            this.bazmanaluAragutyun = 10;
+            this.bazmanaluAragutyun = 12;
+        } else if (exanak == 'summer') {
+            this.bazmanaluAragutyun = 15;
+        } else if (exanak == "autumn") {
+            this.bazmanaluAragutyun = 18;
         }
     }
 
-    bazmanal(){
+    bazmanal() {
+        this.gtnelZuyg();
         this.stanalNorKordinatner();
-        var vandak = random(this.yntrelVandak(1, 0));
+        var vandakZ = random(this.yntrelVandak(4));
 
-        if(vandak && this.energy >= this.bazmanaluAragutyun){
-            var norXotaker = new Xotaker(vandak[0], vandak[1], 2);
+        for(var i in xotakernerArr){
+            if (vandakZ && vandakZ[0] == xotakernerArr[i].x && vandakZ[1] == xotakernerArr[i].y) {
+                var zuygiIndex = i;
+                console.log(zuygiIndex);
+            }
+        }
+            
+        if(vandakZ && xotakernerArr[zuygiIndex].ser == this.zuyg){
+            var vandak = random(this.yntrelVandak(0, 1, 2, 3));
+            var norXotaker = new Xotaker(vandak[0], vandak[1], 4);
             xotakernerArr.push(norXotaker);
-            matrix[vandak[1]][vandak[0]] = 2;
-            this.energy = 5;
-            if (matrix[vandak[1]][vandak[0]] == 1) {
+            console.log('bazmacav');
+            matrix[this.y][this.x] = 4;
+
+            if(matrix[vandak[1]][vandak[0]] == 1){
                 for (var c in grassArr) {
-                    if (vandak[0] == grassArr[c].x && vandak[1] == grassArr[c].y) {
+                    if (this.x == grassArr[c].x && this.y == grassArr[c].y) {
                         grassArr.splice(c, 1);
                         break;
                     } 
                 }
             }
-            xotakerneriQanak++;
-        }
+    }
     }
 
-    mahanal(){
+    mahanal() {
         if (this.energy <= 0) {
             matrix[this.y][this.x] = 0;
-            for (var d in xotakernerArr){
+            for (var d in xotakernerArr) {
                 if (this.x == xotakernerArr[d].x && this.y == xotakernerArr[d].y) {
                     xotakernerArr.splice(d, 1);
                     break;

@@ -1,8 +1,9 @@
 class Amenaker extends KendaniEak{
 	constructor(x, y, index){
 		super(x, y, index);
-        this.directions = [];
+        this.directions = [];   
         this.moveTact = 0;
+        this.zuyg;
 	}
 
 	yntrelVandak(ch, ch1, ch2, ch3, ch4){
@@ -58,13 +59,31 @@ class Amenaker extends KendaniEak{
         }
     }
 
+    gtnelZuyg(){
+        if (this.ser == 1) {
+            this.zuyg = 0;
+        }else{
+            this.zuyg = 1;
+        }
+    }
+
     bazmanal(){
-        amenakerneriQanak++;
+        this.gtnelZuyg();
         this.stanalNorKordinatner();
-        var vandak = random(this.yntrelVandak(1, 2, 3, 1, 0));
-        if(vandak){
+        var vandakZ = random(this.yntrelVandak(4));
+
+        for(var i in amenakernerArr){
+            if (vandakZ && vandakZ[0] == amenakernerArr[i].x && vandakZ[1] == amenakernerArr[i].y) {
+                var zuygiIndex = i;
+                console.log(zuygiIndex);
+            }
+        }
+            
+        if(vandakZ && amenakernerArr[zuygiIndex].ser == this.zuyg){
+            var vandak = random(this.yntrelVandak(0, 1, 2, 3));
             var norAmenaker = new Amenaker(vandak[0], vandak[1], 4);
             amenakernerArr.push(norAmenaker);
+            console.log('bazmacav');
             matrix[this.y][this.x] = 4;
 
             if(matrix[vandak[1]][vandak[0]] == 1){
@@ -83,12 +102,12 @@ class Amenaker extends KendaniEak{
                 }
             }else if(matrix[vandak[1]][vandak[0]] == 3){
                 for (var c in gishatichnerArr) {
-                    if (this.x == gishatichnerArr[c].x && this.y == gishatichnerArr[c].y) {
-                        gishatichnerArr.splice(c, 1);
-                        break;
-                    } 
-                }
+                if (this.x == gishatichnerArr[c].x && this.y == gishatichnerArr[c].y) {
+                    gishatichnerArr.splice(c, 1);
+                    break;
+                } 
             }
         }
+    }
     }
 }

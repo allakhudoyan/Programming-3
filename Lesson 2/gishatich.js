@@ -3,6 +3,7 @@ class Gishatich extends KendaniEak{
 		super(x, y, index);
 		this.directions = [];
         this.bazmanaluAragutyun;
+        this.energy = 30;
 	}
 
 	yntrelVandak(ch, ch1, ch2, ch3, ch4){
