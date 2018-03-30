@@ -1,8 +1,8 @@
 class Xotaker extends KendaniEak {
     constructor(x, y, index) {
         super(x, y, index);
-        this.tariq = 0;
         this.bazmanaluAragutyun;
+        this.directions = [];
         this.zuyg;
     }
 
@@ -24,10 +24,10 @@ class Xotaker extends KendaniEak {
         return super.yntrelVandak(ch, ch1, ch2, ch3, ch4);
     }
 
-    gtnelZuyg(){
+    gtnelZuyg() {
         if (this.ser == 1) {
             this.zuyg = 0;
-        }else{
+        } else {
             this.zuyg = 1;
         }
     }
@@ -35,21 +35,19 @@ class Xotaker extends KendaniEak {
     utel() {
         this.stanalNorKordinatner();
         var vandak = random(this.yntrelVandak(0, 1));
-        if (vandak && matrix[vandak[1]][vandak[0]] == 1) {
-            matrix[this.y][this.x] = 0;
-            this.x = vandak[0];
-            this.y = vandak[1];
-            matrix[this.y][this.x] = this.index;
-
-            for (var c in grassArr) {
-                if (this.x == grassArr[c].x && this.y == grassArr[c].y) {
-                    grassArr.splice(c, 1);
-                    this.energy++;
-                    break;
+        if (vandak) {
+            if (matrix[vandak[1]][vandak[0]] == 1) {
+                for (var c in grassArr) {
+                    if (this.x == grassArr[c].x && this.y == grassArr[c].y) {
+                        grassArr.splice(c, 1);
+                        this.energy++;
+                        break;
+                    }
                 }
+            } else {
+                this.energy--;
             }
-        } else if (vandak && matrix[vandak[1]][vandak[0]] == 0) {
-            this.energy--;
+ 
             matrix[this.y][this.x] = 0;
             this.x = vandak[0];
             this.y = vandak[1];
@@ -61,40 +59,40 @@ class Xotaker extends KendaniEak {
         if (exanak == "spring") {
             this.bazmanaluAragutyun = 12;
         } else if (exanak == 'summer') {
-            this.bazmanaluAragutyun = 15;
+            this.bazmanaluAragutyun = 17;
         } else if (exanak == "autumn") {
-            this.bazmanaluAragutyun = 18;
+            this.bazmanaluAragutyun = 20;
         }
     }
 
     bazmanal() {
         this.gtnelZuyg();
         this.stanalNorKordinatner();
-        var vandakZ = random(this.yntrelVandak(4));
+        var vandakZ = random(this.yntrelVandak(2));
 
-        for(var i in xotakernerArr){
+        for (var i in xotakernerArr) {
             if (vandakZ && vandakZ[0] == xotakernerArr[i].x && vandakZ[1] == xotakernerArr[i].y) {
                 var zuygiIndex = i;
-                console.log(zuygiIndex);
+                break;
             }
         }
-            
-        if(vandakZ && xotakernerArr[zuygiIndex].ser == this.zuyg){
-            var vandak = random(this.yntrelVandak(0, 1, 2, 3));
-            var norXotaker = new Xotaker(vandak[0], vandak[1], 4);
-            xotakernerArr.push(norXotaker);
-            console.log('bazmacav');
-            matrix[this.y][this.x] = 4;
 
-            if(matrix[vandak[1]][vandak[0]] == 1){
+        var vandak = random(this.yntrelVandak(0, 1));
+
+        if (zuygiIndex && vandak && vandakZ && xotakernerArr[zuygiIndex].ser == this.zuyg && this.energy >= this.bazmanaluAragutyun) {
+            var norXotaker = new Xotaker(vandak[0], vandak[1], 2);
+            xotakernerArr.push(norXotaker);
+            matrix[this.y][this.x] = 2;
+
+            if (matrix[vandak[1]][vandak[0]] == 1) {
                 for (var c in grassArr) {
                     if (this.x == grassArr[c].x && this.y == grassArr[c].y) {
                         grassArr.splice(c, 1);
                         break;
-                    } 
+                    }
                 }
             }
-    }
+        }
     }
 
     mahanal() {

@@ -2,24 +2,25 @@ var grassArr = [];
 var xotakernerArr = [];
 var gishatichnerArr = [];
 var amenakernerArr = [];
-var qarArr = [];
+var sardArr = [];
 var mahArr = [];
 var side = 30;
 var matrix = [
-    [1, 1, 0, 0, 0, 0, 0, 0, 0, 2],
-    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [4, 0, 0, 0, 0, 0, 2, 0, 0, 0],
-    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 0, 2, 0, 0, 0, 0, 0, 3],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 3, 0, 0, 0],
+    [4, 2, 4, 0, 0, 0, 0, 0, 0, 0],
     [6, 0, 0, 0, 6, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 6, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-    [0, 0, 0, 0, 0, 0, 6, 0, 0, 4],
-    [3, 0, 0, 0, 0, 0, 0, 0, 0, 4]
+    [0, 0, 0, 0, 0, 0, 2, 0, 0, 0],
+    [0, 0, 2, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 4, 6, 0, 0, 0],
+    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 var exanakner = ['winter', 'spring', 'summer', 'autumn'];
 var exanak = 'spring';
 var ex = 0;
+var frame = 0;
 
 function setup() {
     // for (var y = 0; y < 20; y++) {
@@ -48,8 +49,8 @@ function setup() {
                 var amenaker = new Amenaker(x, y, 4);
                 amenakernerArr.push(amenaker);
             } else if (matrix[y][x] == 6) {
-                var qar = new Qar(x, y, 6);
-                qarArr.push(qar);
+                var sard = new Sard(x, y, 6);
+                sardArr.push(sard);
             }
         }
     }
@@ -59,6 +60,7 @@ var multiplyMah = 0;
 var multiplyExanak = 0;
 
 function draw() {
+    frame++;
     multiplyMah++;
 
     if (multiplyMah >= 10) {
@@ -91,6 +93,13 @@ function draw() {
             for (var c in amenakernerArr) {
                 if (x == amenakernerArr[c].x && y == amenakernerArr[c].y) {
                     amenakernerArr.splice(c, 1);
+                    break;
+                }
+            }
+        } else if (matrix[y][x] == 6) {
+            for (var c in sardArr) {
+                if (x == sardArr[c].x && y == sardArr[c].y) {
+                    sardArr.splice(c, 1);
                     break;
                 }
             }
@@ -142,7 +151,7 @@ function draw() {
                 fill('black');
                 rect(side * x, side * y, side, side);
             } else if (matrix[y][x] == 6) {
-                fill('grey');
+                fill('purple');
                 rect(side * x, side * y, side, side);
             }
         }
@@ -168,7 +177,7 @@ function draw() {
     }
 
     for (var f in gishatichnerArr) {
-        xotakernerArr[i].stanalExanak(exanak);
+        gishatichnerArr[f].stanalExanak(exanak);
         gishatichnerArr[f].utel();
         gishatichnerArr[f].bazmanal();
         gishatichnerArr[f].mahanal();
@@ -183,7 +192,51 @@ function draw() {
         }
     }
 
-    for (var i in qarArr) {
-        qarArr[i].texapokhvel();
+    if (exanak == 'winter' || exanak == 'autumn') {
+        for (var i in sardArr) {
+            sardArr[i].sharjvel();
+            sardArr[i].tunavorel();
+            sardArr[i].bazmanal();
+        }
+    }
+
+    console.log(xotakernerArr.length);
+    console.log(amenakernerArr.length);
+
+    if(frame >= 60){
+        var info = xotakernerArr.length;
+        var myJSON = JSON.stringify("Hima ka " + info + ' xotaker');
+        var fs = require('fs');
+
+        function main() {
+            fs.writeFileSync("info.json", myJSON);
+        }
+        main();
+    }
+
+    if(xotakernerArr.length == 0 && gishatichnerArr == 0 && amenakernerArr == 0){
+        background('#acacac');
+        createCanvas(matrix[0].length * side, matrix.length * side);
+        fill('black');
+        textSize(32);
+        text('Game Over: Sard Win', 10, 30);
+    } else if (xotakernerArr.length == 0 && gishatichnerArr == 0 && sardArr == 0){
+        background('#acacac');
+        createCanvas(matrix[0].length * side, matrix.length * side);
+        fill('black');
+        textSize(32);
+        text('Game Over: Amenaker Win', 10, 30);
+    } else if (amenakernerArr.length == 0 && gishatichnerArr == 0 && sardArr == 0){
+        background('#acacac');
+        createCanvas(matrix[0].length * side, matrix.length * side);
+        fill('black');
+        textSize(32);
+        text('Game Over: Xotaker Win', 10, 30);
+    } else if (xotakernerArr.length == 0 && amenakernerArr == 0 && sardArr == 0){
+        background('#acacac');
+        createCanvas(matrix[0].length * side, matrix.length * side);
+        fill('black');
+        textSize(50);
+        text('Game Over: Gishatich Win', 10, 30);
     }
 }

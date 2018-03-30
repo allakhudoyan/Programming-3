@@ -4,7 +4,7 @@ class KendaniEak {
         this.x = x;
         this.y = y;
         this.energy = 10;
-        this.ser = random(0, 1);
+        this.ser = Math.floor(random(0, 2));
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x    , this.y - 1],
