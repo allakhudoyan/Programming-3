@@ -84,7 +84,7 @@ class Amenaker extends KendaniEak {
 
         var vandak = random(this.yntrelVandak(0, 1, 2, 3));
 
-        if (vandak && vandakZ && amenakernerArr[zuygiIndex].ser == this.zuyg) {
+        if (zuygiIndex && vandak && vandakZ && amenakernerArr[zuygiIndex].ser == this.zuyg) {
             var norAmenaker = new Amenaker(vandak[0], vandak[1], 4);
             amenakernerArr.push(norAmenaker);
             matrix[this.y][this.x] = 4;

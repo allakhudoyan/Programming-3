@@ -5,30 +5,30 @@ var amenakernerArr = [];
 var sardArr = [];
 var mahArr = [];
 var side = 30;
-var matrix = [
-    [1, 1, 0, 2, 0, 0, 0, 0, 0, 3],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 3, 0, 0, 0],
-    [4, 2, 4, 0, 0, 0, 0, 0, 0, 0],
-    [6, 0, 0, 0, 6, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 6, 0],
-    [0, 0, 0, 0, 0, 0, 2, 0, 0, 0],
-    [0, 0, 2, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 4, 6, 0, 0, 0],
-    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-];
+// var matrix = [
+//     [1, 1, 0, 2, 0, 0, 0, 0, 0, 3],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 3, 0, 0, 0],
+//     [4, 2, 4, 0, 0, 0, 0, 0, 0, 0],
+//     [6, 0, 0, 0, 6, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 6, 0],
+//     [0, 0, 0, 3, 0, 0, 2, 0, 0, 0],
+//     [0, 0, 2, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 4, 6, 0, 0, 0],
+//     [3, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+// ];
+var matrix = [];
 var exanakner = ['winter', 'spring', 'summer', 'autumn'];
 var exanak = 'spring';
 var ex = 0;
-var frame = 0;
 
 function setup() {
-    // for (var y = 0; y < 20; y++) {
-    //     matrix[y] = [0];
-    //     for (var x = 0; x < 20; x++) {
-    //         matrix[y][x] = Math.floor(random(0, 6));
-    //     }
-    // }
+    for (var y = 0; y < 20; y++) {
+        matrix[y] = [0];
+        for (var x = 0; x < 20; x++) {
+            matrix[y][x] = Math.floor(random(0, 7));
+        }
+    }
 
     frameRate(3);
     background('#acacac');
@@ -60,7 +60,6 @@ var multiplyMah = 0;
 var multiplyExanak = 0;
 
 function draw() {
-    frame++;
     multiplyMah++;
 
     if (multiplyMah >= 10) {
@@ -104,7 +103,7 @@ function draw() {
                 }
             }
         }
-        matrix[y][x] = 5;
+        matrix[y][x] = 7;
         mahArr[0].spanel();
         mahArr = [];
         multiplyMah = 0;
@@ -139,20 +138,60 @@ function draw() {
                 fill('#acacac');
                 rect(x * side, y * side, side, side);
             } else if (matrix[y][x] == 2) {
-                fill('yellow');
-                rect(side * x, side * y, side, side);
+                for(var i in xotakernerArr){
+                    if (x == xotakernerArr[i].x && y == xotakernerArr[i].y) {
+                        if (xotakernerArr[i].ser == 1) {
+                            fill('#DFDC00');
+                            rect(side * x, side * y, side, side);
+                        }else{
+                            fill('yellow');
+                            rect(side * x, side * y, side, side);
+                        }
+                        break;
+                    }
+                }
             } else if (matrix[y][x] == 3) {
-                fill('red');
-                rect(side * x, side * y, side, side);
+                for(var i in gishatichnerArr){
+                    if (x == gishatichnerArr[i].x && y == gishatichnerArr[i].y) {
+                        if (gishatichnerArr[i].ser == 1) {
+                            fill('red');
+                            rect(side * x, side * y, side, side);
+                        }else{
+                            fill('#FF5656');
+                            rect(side * x, side * y, side, side);
+                        }
+                        break;
+                    }
+                }
             } else if (matrix[y][x] == 4) {
-                fill('brown');
-                rect(side * x, side * y, side, side);
-            } else if (matrix[y][x] == 5) {
+                for(var i in amenakernerArr){
+                    if (x == amenakernerArr[i].x && y == amenakernerArr[i].y) {
+                        if (amenakernerArr[i].ser == 1) {
+                            fill('#673700');
+                            rect(side * x, side * y, side, side);
+                        }else{
+                            fill('brown');
+                            rect(side * x, side * y, side, side);
+                        }
+                        break;
+                    }
+                }
+            } else if (matrix[y][x] == 7) {
                 fill('black');
                 rect(side * x, side * y, side, side);
             } else if (matrix[y][x] == 6) {
-                fill('purple');
-                rect(side * x, side * y, side, side);
+                for(var i in sardArr){
+                    if (x == sardArr[i].x && y == sardArr[i].y) {
+                        if (sardArr[i].ser == 1) {
+                            fill('purple');
+                            rect(side * x, side * y, side, side);
+                        }else{
+                            fill('#B600FF');
+                            rect(side * x, side * y, side, side);
+                        }
+                        break;
+                    }
+                }
             }
         }
     }
@@ -200,18 +239,14 @@ function draw() {
         }
     }
 
-    console.log(xotakernerArr.length);
-    console.log(amenakernerArr.length);
+    var socket = io.connect('http://localhost:3000');
 
-    if(frame >= 60){
+    if(frameCount % 60 == 0){
         var info = xotakernerArr.length;
         var myJSON = JSON.stringify("Hima ka " + info + ' xotaker');
-        var fs = require('fs');
-
-        function main() {
-            fs.writeFileSync("info.json", myJSON);
+        function handleSubmit(evt) {
+            socket.emit("send message", myJSON);
         }
-        main();
     }
 
     if(xotakernerArr.length == 0 && gishatichnerArr == 0 && amenakernerArr == 0){
